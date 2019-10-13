@@ -7,7 +7,8 @@
    var passengers = [ { name: "Jane Doloop", paid: true, ticket: "coach" },
                       { name: "Dr. Evel", paid: true, ticket: "firstclass" },
                       { name: "Sue Property", paid: false, ticket: "firstclass" },
-                      { name: "John Funcall", paid: true, ticket: "coach" }];
+                      { name: "John Funcall", paid: true, ticket: "coach" },
+                      { name: "Ivan Ivanov", paid: true, ticket: "improved_economic" }];
     function processPassengers(passengers, testFunction) {
       for (var i = 0; i < passengers.length; i++) {
         if (testFunction(passengers[i])) {
@@ -18,20 +19,43 @@
     }
     function serveCustomer(passenger) {
       var getDrinkOrderFunction = createDrinkOrder(passenger);
+      var getDinnerOrderFunction = createDinnerFunction(passenger);
       getDrinkOrderFunction();
-      //Offer lunch
+      getDinnerOrderFunction();
       getDrinkOrderFunction();
       getDrinkOrderFunction();
       //Turn on movie
       getDrinkOrderFunction();
       //Pick up trash
     }
+    
+    function createDinnerFunction(passenger) {
+      var orderFunction;
+      if (passenger.ticket === "firstclass") {
+        orderFunction = function(){
+          alert("Would you like a chicken or pasta");
+        };
+      } else if (passenger.ticket === "improved_economic") {
+        orderFunction = function(){
+          alert("Would you like snacks or cheese plate?")
+        };
+      } else {
+        orderFunction = function(){
+          alert("You choice is nuts or crackers.");
+        };
+      }
+      return orderFunction;
+    }
+
     function createDrinkOrder(passenger) {
       var orderFunction;
-
       if (passenger.ticket === "firstclass") {
         orderFunction = function(){
           alert("Would you like a cocktail or wine?");
+        };
+      } else if (passenger.ticket === "improved_economic") {
+        orderFunction = function(){
+          alert("Would you like water cola or wine?")
         };
       } else {
         orderFunction = function(){
